@@ -14,6 +14,7 @@ install.packages("rgdal")
 install.packages("maptools")
 install_github ("marlonecobos/kuenm")
 
+
 ## Carregando pacotes necessários para instalação. 
 #  Cada vez que q uma sessão de R é iniciada, é preciso carregar os pacotes que serão usados, como abaixo:
 
