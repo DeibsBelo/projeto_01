@@ -1,8 +1,8 @@
-###################################
+####################################
 # Script setup sdm_data
 # R version 4.1 .1
 # modler version 0.0.1
-###################################
+####################################
 
 ## Carregague as bibliotecas instaladas 
 
@@ -16,7 +16,14 @@ library(raster)
 
 ### Importando e lendo sua planilha no ambiente R. read.csv é uma função para ler a extensão .csv. NO argumento "file" coloque o caminho relativo do arquivo .csv , no arquivo "sep" indique qual o tipo de separado dos campos (o que separa as colunas).
 
-sp_input <- read.csv(file = "./dados/ocorrencias/sp_input_setupsdmdata.csv", sep = ",") # 
+sp_input <- read.csv(file = "./dados/ocorrencias/sp_input_setupsdmdata.csv", sep = ",") 
+
+## Colocando no formato exigido pelo pacote: species name separated by "_" 
+sp_input$species <-
+  gsub(x = sp_input$species,
+       pattern = " ",
+       replacement = "_") 
+
 
 ## Carregando as variáveis ambientais
 
@@ -39,25 +46,23 @@ for (i in 1:length(sp_input)) {
 ## modler função 1
 
 setup_sdmdata_1 <- setup_sdmdata(species_name = unique(sp_input[1]), 
-              occurrences = sp_input,
-              lon = "lon",
-              lat = "lat",
-              predictors = vars_stack,
-              models_dir = "./resultados",
-              partition_type = "crossvalidation",
-              cv_partitions = 3,
-              cv_n = 1,
-              seed = 512,
-              buffer_type = "mean",
-              png_sdmdata = TRUE,
-              n_back = 30,
-              clean_dupl = TRUE,
-              clean_uni = TRUE,
-              clean_nas = TRUE,
-              #geo_filt = FALSE,
-              #geo_filt_dist = 0,
-              select_variables = TRUE,
-              sample_proportion = 0.5,
-              cutoff = 0.7)
-
-
+                                 occurrences = sp_input,
+                                 lon = "lon",
+                                 lat = "lat",
+                                 predictors = vars_stack,
+                                 models_dir = "./resultados",
+                                 partition_type = "crossvalidation",
+                                 cv_partitions = 3,
+                                 cv_n = 1,
+                                 seed = 512,
+                                 buffer_type = "mean",
+                                 png_sdmdata = TRUE,
+                                 n_back = 30,
+                                 clean_dupl = TRUE,
+                                 clean_uni = TRUE,
+                                 clean_nas = TRUE,
+                                 #geo_filt = FALSE,
+                                 #geo_filt_dist = 0,
+                                 select_variables = TRUE,
+                                 sample_proportion = 0.5,
+                                 cutoff = 0.7)
